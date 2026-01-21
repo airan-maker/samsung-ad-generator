@@ -25,6 +25,7 @@ class MusicMood(Enum):
     LUXURY = "luxury"
     ENERGETIC = "energetic"
     MINIMALIST = "minimalist"
+    CINEMATIC = "cinematic"
 
 
 class MusicGenre(Enum):
