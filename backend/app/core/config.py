@@ -52,6 +52,7 @@ class Settings(BaseSettings):
     REPLICATE_API_KEY: str = ""
     SUNO_API_KEY: str = ""
     MUBERT_API_KEY: str = ""
+    GOOGLE_API_KEY: str = ""  # Google AI Studio (Gemini + Imagen)
 
     # Celery
     CELERY_BROKER_URL: str = "redis://localhost:6379/1"
