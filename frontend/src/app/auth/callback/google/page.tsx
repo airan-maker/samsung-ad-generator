@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LoadingPage } from "@/components/common/Loading";
 import { api } from "@/lib/api";
 
-export default function GoogleCallbackPage() {
+function GoogleCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
@@ -39,9 +39,10 @@ export default function GoogleCallbackPage() {
 
         // Redirect to callback URL or default
         router.push(state || "/create");
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Google login error:", err);
-        setError(err.response?.data?.detail || "로그인 중 오류가 발생했습니다.");
+        const errorMessage = err instanceof Error ? err.message : "로그인 중 오류가 발생했습니다.";
+        setError(errorMessage);
         setTimeout(() => router.push("/login"), 3000);
       }
     };
@@ -61,4 +62,12 @@ export default function GoogleCallbackPage() {
   }
 
   return <LoadingPage />;
+}
+
+export default function GoogleCallbackPage() {
+  return (
+    <Suspense fallback={<LoadingPage />}>
+      <GoogleCallbackContent />
+    </Suspense>
+  );
 }

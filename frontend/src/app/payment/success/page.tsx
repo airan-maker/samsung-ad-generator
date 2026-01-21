@@ -32,7 +32,13 @@ function PaymentSuccessContent() {
       }
 
       try {
-        const result = await api.post("/payments/confirm", {
+        interface PaymentResult {
+          success: boolean;
+          receipt_url?: string;
+          error?: string;
+        }
+
+        const result = await api.post<PaymentResult>("/payments/confirm", {
           payment_key: paymentKey,
           order_id: orderId,
           amount: parseInt(amount),
@@ -40,7 +46,7 @@ function PaymentSuccessContent() {
 
         if (result.success) {
           setStatus("success");
-          setReceiptUrl(result.receipt_url);
+          setReceiptUrl(result.receipt_url || null);
           // Refresh user data to update credits/plan
           await refreshUser();
         } else {

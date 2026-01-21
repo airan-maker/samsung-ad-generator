@@ -79,13 +79,22 @@ function CheckoutContent() {
 
     try {
       // Create checkout session
-      let checkoutData;
+      interface CheckoutResponse {
+        client_key: string;
+        amount: number;
+        order_id: string;
+        order_name: string;
+        success_url: string;
+        fail_url: string;
+      }
+
+      let checkoutData: CheckoutResponse;
       if (isCredits) {
-        checkoutData = await api.post("/payments/checkout/credits", {
+        checkoutData = await api.post<CheckoutResponse>("/payments/checkout/credits", {
           package_index: packageIndex,
         });
       } else {
-        checkoutData = await api.post("/payments/checkout", {
+        checkoutData = await api.post<CheckoutResponse>("/payments/checkout", {
           plan: planId,
           billing_cycle: cycle,
         });

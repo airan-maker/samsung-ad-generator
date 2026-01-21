@@ -18,16 +18,16 @@ function useTabs() {
   return context;
 }
 
-interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
-  defaultValue: string;
+export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
 }
 
 const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
-  ({ className, defaultValue, value: controlledValue, onValueChange, children, ...props }, ref) => {
+  ({ className, defaultValue = "", value: controlledValue, onValueChange, children, ...props }, ref) => {
     const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
-    const value = controlledValue ?? uncontrolledValue;
+    const value = controlledValue ?? uncontrolledValue ?? "";
 
     const handleValueChange = React.useCallback(
       (newValue: string) => {

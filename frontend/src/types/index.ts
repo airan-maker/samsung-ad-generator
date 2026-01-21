@@ -21,7 +21,7 @@ export interface Product {
   id: string;
   name: string;
   model_number: string;
-  category: ProductCategory;
+  category: ProductCategoryType;
   subcategory: string;
   description?: string;
   thumbnail: string;
@@ -31,10 +31,10 @@ export interface Product {
   released_at: string;
 }
 
-export type ProductCategory = "smartphone" | "tv" | "appliance" | "wearable";
+export type ProductCategoryType = "smartphone" | "tv" | "appliance" | "wearable";
 
 export interface ProductCategory {
-  id: ProductCategory;
+  id: ProductCategoryType;
   name: string;
   icon: string;
   count: number;
@@ -45,7 +45,7 @@ export interface Template {
   id: string;
   name: string;
   description: string;
-  category: ProductCategory;
+  category: ProductCategoryType;
   style: TemplateStyle;
   durations: number[];
   thumbnail: string;

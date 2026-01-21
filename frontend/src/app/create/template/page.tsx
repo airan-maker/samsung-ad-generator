@@ -178,7 +178,7 @@ export default function TemplateSelectionPage() {
               key={option.value}
               onClick={() => handleDurationChange(option.value)}
               disabled={
-                selectedTemplate && !selectedTemplate.durations.includes(option.value)
+                selectedTemplate ? !selectedTemplate.durations.includes(option.value) : false
               }
               className={cn(
                 "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",

@@ -64,7 +64,6 @@ export default function ResultPage() {
   useEffect(() => {
     if (!isGenerating) return;
 
-    let currentStep = 0;
     const stepDurations = [1000, 1500, 3000, 2000, 1500]; // ms for each step
     const totalDuration = stepDurations.reduce((a, b) => a + b, 0);
 

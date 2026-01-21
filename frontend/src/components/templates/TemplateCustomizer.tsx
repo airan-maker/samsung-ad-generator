@@ -15,14 +15,16 @@ import {
   Check,
 } from "lucide-react";
 
-interface TemplateCustomizerProps {
+export interface TemplateCustomizerProps {
   templateId: string;
-  templateName: string;
-  onSave: (customizations: TemplateCustomizations) => void;
-  onPreview: () => void;
+  templateName?: string;
+  initialConfig?: TemplateConfig;
+  onConfigChange?: (config: TemplateConfig) => void;
+  onSave?: (customizations: TemplateConfig) => void;
+  onPreview?: () => void;
 }
 
-interface TemplateCustomizations {
+export interface TemplateConfig {
   colors: {
     primary: string;
     secondary: string;
@@ -54,7 +56,7 @@ interface TemplateCustomizations {
   };
 }
 
-const defaultCustomizations: TemplateCustomizations = {
+const defaultCustomizations: TemplateConfig = {
   colors: {
     primary: "#1428A0",
     secondary: "#000000",
@@ -143,18 +145,20 @@ const filters = [
 export function TemplateCustomizer({
   templateId,
   templateName,
+  initialConfig,
+  onConfigChange,
   onSave,
   onPreview,
 }: TemplateCustomizerProps) {
-  const [customizations, setCustomizations] = useState<TemplateCustomizations>(
-    defaultCustomizations
+  const [customizations, setCustomizations] = useState<TemplateConfig>(
+    initialConfig || defaultCustomizations
   );
   const [activeSection, setActiveSection] = useState<string>("colors");
   const [hasChanges, setHasChanges] = useState(false);
 
-  const updateCustomization = <K extends keyof TemplateCustomizations>(
+  const updateCustomization = <K extends keyof TemplateConfig>(
     section: K,
-    key: keyof TemplateCustomizations[K],
+    key: keyof TemplateConfig[K],
     value: any
   ) => {
     setCustomizations((prev) => ({
@@ -233,7 +237,7 @@ export function TemplateCustomizer({
             </button>
           </div>
           <button
-            onClick={() => onSave(customizations)}
+            onClick={() => onSave?.(customizations)}
             disabled={!hasChanges}
             className={`mt-2 flex w-full items-center justify-center gap-2 rounded-lg py-2.5 font-medium transition-colors ${
               hasChanges

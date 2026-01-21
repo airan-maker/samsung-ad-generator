@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft, Save, Eye, Download, Share2 } from "lucide-react";
 import { TemplateCustomizer, TemplateConfig } from "@/components/templates/TemplateCustomizer";
+import { LoadingPage } from "@/components/common/Loading";
 
 interface Template {
   id: string;
@@ -46,7 +47,7 @@ const mockTemplates: Record<string, Template> = {
   },
 };
 
-export default function TemplateCustomizePage() {
+function TemplateCustomizeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const templateId = searchParams.get("id") || "1";
@@ -236,7 +237,7 @@ export default function TemplateCustomizePage() {
                       className="mb-4 text-3xl font-bold"
                       style={{
                         color: config?.colors?.primary || "#1428A0",
-                        fontFamily: config?.typography?.headingFont || "Samsung Sharp Sans",
+                        fontFamily: config?.typography?.headlineFont || "Samsung Sharp Sans",
                       }}
                     >
                       Galaxy S25 Ultra
@@ -253,18 +254,19 @@ export default function TemplateCustomizePage() {
 
                     {config?.branding?.showLogo && (
                       <div className="mt-8">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src="/samsung-logo-white.png"
                           alt="Samsung"
                           className="mx-auto h-8"
-                          style={{ opacity: config.branding.logoOpacity || 1 }}
+                          style={{ opacity: 1 }}
                         />
                       </div>
                     )}
                   </div>
 
                   {/* Animation preview overlay */}
-                  {config?.effects?.particleEffect && (
+                  {config?.effects?.animation && (
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/5" />
                   )}
                 </div>
@@ -289,5 +291,13 @@ export default function TemplateCustomizePage() {
         )}
       </main>
     </div>
+  );
+}
+
+export default function TemplateCustomizePage() {
+  return (
+    <Suspense fallback={<LoadingPage />}>
+      <TemplateCustomizeContent />
+    </Suspense>
   );
 }
