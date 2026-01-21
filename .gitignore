@@ -1,0 +1,67 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.eggs/
+*.egg-info/
+*.egg
+
+# Environment
+.env
+.env.local
+.env.*.local
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build
+dist/
+build/
+*.egg-info/
+.next/
+out/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Cache
+.cache/
+*.pyc
+.mypy_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+uploads/
+temp/
+*.mp4
+*.mp3
+*.wav
+
+# Docker
+.docker/
+
+# Secrets
+*.pem
+*.key
+credentials.json
