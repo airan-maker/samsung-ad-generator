@@ -1,9 +1,23 @@
 from fastapi import APIRouter
 
-from app.api.v1 import auth, users, products, templates, projects, videos, scripts, payments, voices, ab_tests
+from app.api.v1 import (
+    auth,
+    users,
+    products,
+    templates,
+    projects,
+    videos,
+    scripts,
+    payments,
+    voices,
+    ab_tests,
+    public_api,
+    analytics,
+)
 
 api_router = APIRouter()
 
+# Internal API routes (requires JWT authentication)
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(products.router, prefix="/products", tags=["products"])
@@ -14,3 +28,7 @@ api_router.include_router(scripts.router, prefix="/scripts", tags=["scripts"])
 api_router.include_router(payments.router, prefix="/payments", tags=["payments"])
 api_router.include_router(voices.router, prefix="/voices", tags=["voices"])
 api_router.include_router(ab_tests.router, prefix="/ab-tests", tags=["ab-tests"])
+api_router.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
+
+# Public API routes (B2B - requires API key authentication)
+api_router.include_router(public_api.router, prefix="/public", tags=["public-api"])
