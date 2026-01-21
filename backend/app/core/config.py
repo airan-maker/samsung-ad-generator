@@ -49,6 +49,9 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = ""
     RUNWAY_API_KEY: str = ""
     ELEVENLABS_API_KEY: str = ""
+    REPLICATE_API_KEY: str = ""
+    SUNO_API_KEY: str = ""
+    MUBERT_API_KEY: str = ""
 
     # Celery
     CELERY_BROKER_URL: str = "redis://localhost:6379/1"

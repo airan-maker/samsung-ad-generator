@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.v1 import auth, users, products, templates, projects, videos, scripts, payments
+from app.api.v1 import auth, users, products, templates, projects, videos, scripts, payments, voices, ab_tests
 
 api_router = APIRouter()
 
@@ -12,3 +12,5 @@ api_router.include_router(projects.router, prefix="/projects", tags=["projects"]
 api_router.include_router(videos.router, prefix="/videos", tags=["videos"])
 api_router.include_router(scripts.router, prefix="/scripts", tags=["scripts"])
 api_router.include_router(payments.router, prefix="/payments", tags=["payments"])
+api_router.include_router(voices.router, prefix="/voices", tags=["voices"])
+api_router.include_router(ab_tests.router, prefix="/ab-tests", tags=["ab-tests"])
